@@ -13,8 +13,10 @@
 -- d、UPDATE CSV COLUMN NAME
 -- e、Add CSV Header For User Choose Language
 -- f、UPDATE COLUMN CHINESE NAME
+-- g、UPDATE FIRST USE DB
 -- ===================================================================
-
+-- 使用stock資料庫
+use stock;
 DELIMITER $$
 -- 如果PROCEDURE存在就先移除                                                                                                                                                                   
 DROP PROCEDURE IF EXISTS procExportTableSchema $$       
@@ -207,7 +209,7 @@ BEGIN
 			INTO OUTFILE '",@file_name,"' CHARACTER SET Big5 FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n'"); 
             
             -- 這一段供測試用
-            -- SELECT @export_csv;
+            SELECT @export_csv;
             -- 執行SQL
 			PREPARE stmt2 FROM @export_csv;                                                                                                                                               
   			EXECUTE stmt2; 
