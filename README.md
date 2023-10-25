@@ -7,13 +7,16 @@
 ### 目錄
 
 - [批次建立資料表\&匯出資料表結構到CSV](#批次建立資料表匯出資料表結構到csv)
-    - [簡介](#簡介)
-    - [目錄](#目錄)
-  - [一、使用方式](#一使用方式)
-  - [二、執行步驟](#二執行步驟)
-    - [補上SP語法直接讓大家複製貼上](#補上sp語法直接讓大家複製貼上)
-    - [注意事項](#注意事項)
-    - [步驟開始](#步驟開始)
+		- [簡介](#簡介)
+		- [目錄](#目錄)
+	- [一、使用方式](#一使用方式)
+	- [二、執行步驟](#二執行步驟)
+		- [附上`AutoImportSP.bat`原始碼給大家參考](#附上autoimportspbat原始碼給大家參考)
+		- [自動執行](#自動執行)
+		- [手動執行](#手動執行)
+		- [補上SP語法直接讓大家複製貼上](#補上sp語法直接讓大家複製貼上)
+		- [注意事項](#注意事項)
+		- [步驟開始](#步驟開始)
 
 
 ## 一、使用方式
@@ -30,6 +33,87 @@ https://github.com/Mark850409/mysqlAutoCreateDB
 
 
 ## 二、執行步驟
+
+### 附上`AutoImportSP.bat`原始碼給大家參考
+
+```bat
+@echo off
+chcp 65001
+echo ===========================
+echo 歡迎使用資料庫匯入小程式!!!
+echo 請依照以下提示訊息輸入!!!
+echo ===========================
+
+echo.
+echo.
+
+echo =========注意事項==========
+echo 1.放SQL的檔案路徑不能有中文!!!
+echo 2.提示訊息的輸入不得為空!!!
+echo 3.請事先下載好SQL檔案
+echo ===========================
+
+echo.
+
+cd /d C:/Program Files/MySQL/MySQL Server 8.0/bin
+
+:UserNamePrompt
+set /P name=請輸入資料庫帳號：
+if not defined name goto UserNamePrompt
+if %name% neq "" goto pwPrompt
+
+:pwPrompt
+set /p pw=請輸入資料庫密碼：
+if not defined pw goto pwPrompt
+if %pw% neq "" goto pathPrompt
+
+
+:pathPrompt
+set /p mypath=請輸入資料庫檔案路徑：
+if not defined mypath goto pathPrompt
+if %mypath% neq "" goto checkpath
+
+:checkpath
+if exist %mypath% (
+  goto importsql 
+) else (
+  echo "路徑輸入錯誤，請重新輸入!!!"
+  goto end
+)
+
+
+:importsql
+REM echo %mypath%/Createstocktable.sql
+mysql -u %name% -p%pw% -e "source %mypath%/Createstocktable.sql;" -e "use stock;" -e "source %mypath%/ExportstockTable.sql;"
+goto openfiles
+
+
+:openfiles
+start  "" "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads"
+goto end
+
+:end
+pause
+
+```
+
+
+### 自動執行
+
+1. 點兩下執行`AutoImportSP.bat`
+![image-20231025201337284](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025201337284.png)
+
+
+2. 輸入資料庫帳號
+![image-20231025201548145](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025201548145.png)
+
+3. 輸入資料庫密碼&檔案路徑
+![image-20231025210302250](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025210302250.png)
+
+4. 等待執行完成
+![image-20231025210327458](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025210327458.png)
+
+### 手動執行
 
 ### 補上SP語法直接讓大家複製貼上
 
