@@ -113,6 +113,9 @@ pause
 4. 等待執行完成
 ![image-20231025210327458](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025210327458.png)
 
+5. 執行結果
+![image-20231025211146465](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025211146465.png)
+
 ### 手動執行
 
 ### 補上SP語法直接讓大家複製貼上
