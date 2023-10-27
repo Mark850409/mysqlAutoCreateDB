@@ -9,32 +9,74 @@
 - [批次建立資料表\&匯出資料表結構到CSV](#批次建立資料表匯出資料表結構到csv)
 		- [簡介](#簡介)
 		- [目錄](#目錄)
-	- [一、使用方式](#一使用方式)
-	- [二、執行步驟](#二執行步驟)
-		- [附上`AutoImportSP.bat`原始碼給大家參考](#附上autoimportspbat原始碼給大家參考)
-		- [自動執行](#自動執行)
-		- [手動執行](#手動執行)
-		- [補上SP語法直接讓大家複製貼上](#補上sp語法直接讓大家複製貼上)
-		- [注意事項](#注意事項)
-		- [步驟開始](#步驟開始)
+	- [一、常見問題](#一常見問題)
+		- [20231026 更新](#20231026-更新)
+	- [二、使用方式](#二使用方式)
+	- [三、執行步驟](#三執行步驟)
+		- [(1) 自動執行](#1-自動執行)
+		- [(2) 手動執行](#2-手動執行)
+		- [(3) 注意事項](#3-注意事項)
+		- [(4) 步驟開始](#4-步驟開始)
 
 
-## 一、使用方式
+
+
+## 一、常見問題
+
+### 20231026 更新
+
+發現給同學的`bat檔`，遇到了一個小問題，很開心`點兩下執行`出現如下圖畫面...
+
+
+![image-20231026200612113](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026200612113.png)
+
+這時可以打開`NOTEPAD++`，查看`文件編碼`，發現被改掉變成`UNIX換行格式`
+![image-20231026200659464](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026200659464.png)
+
+
+點選編輯→換行格式→`Windows格式`
+![image-20231026200733515](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026200733515.png)
+
+
+確定`格式已變更`，看`右下角`
+![image-20231026200806432](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026200806432.png)
+
+
+再次執行就成功囉~
+![image-20231026201503318](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026201503318.png)
+
+
+## 二、使用方式
 
 1. 進入到以下網址，`下載專案`到本地端
 https://github.com/Mark850409/mysqlAutoCreateDB
 
 2. 點選Code→Download ZIP
 
-![image-20231023100858046](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231023100858046.png)
+![image-20231026201802967](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026201802967.png)
 
 3. `解壓`後會看到如下圖檔案
-![image-20231023100942573](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231023100942573.png)
+![image-20231026201715865](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231026201715865.png)
 
 
-## 二、執行步驟
+## 三、執行步驟
 
-### 附上`AutoImportSP.bat`原始碼給大家參考
+### (1) 自動執行
+
+1. 點兩下執行`AutoImportSP.bat`
+![image-20231025201337284](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025201337284.png)
+
+
+2. 輸入資料庫帳號&輸入資料庫密碼
+![image-20231025213728682](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025213728682.png)
+
+3. 等待執行完成
+![image-20231025210327458](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025210327458.png)
+
+4. 執行結果
+![image-20231025211146465](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025211146465.png)
+
+附上`AutoImportSP.bat`原始碼給大家參考
 
 ```bat
 @echo off
@@ -107,26 +149,9 @@ goto end
 pause
 
 ```
+### (2) 手動執行
 
-
-### 自動執行
-
-1. 點兩下執行`AutoImportSP.bat`
-![image-20231025201337284](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025201337284.png)
-
-
-2. 輸入資料庫帳號&輸入資料庫密碼
-![image-20231025213728682](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025213728682.png)
-
-3. 等待執行完成
-![image-20231025210327458](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025210327458.png)
-
-4. 執行結果
-![image-20231025211146465](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231025211146465.png)
-
-### 手動執行
-
-### 補上SP語法直接讓大家複製貼上
+補上SP語法直接讓大家複製貼上
 
 1. 第一隻要執行的SP為`procCreateTableSchema`
 
@@ -517,13 +542,13 @@ call procExportTableSchema(@DBName,@title);
 ```
 
 
-### 注意事項
+### (3) 注意事項
 
 1. 請依序執行SP，先執行`建立資料表SP`，再執行`匯出資料表結構SP`
 2. 請將代碼複製貼上`整段執行`(不要`單獨執行`會`出錯`)
 3. 請先安裝`mysql workbench`，並確認`mysql`程序`可正常執行`
 
-### 步驟開始
+### (4) 步驟開始
 
 1. 將剛才下載的檔案`批次建立stock table.sql`，將語法整段複製起來，貼到`mysql Workbench`，如下圖
 ![image-20231023101347673](https://raw.githubusercontent.com/Mark850409/UploadGithubImage/master/image-20231023101347673.png)
